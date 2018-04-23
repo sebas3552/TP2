@@ -8,3 +8,4 @@ class Nodo{
 	private:
 		Nodo v[34];
 }
+#endif
