@@ -7,7 +7,6 @@ class Nodo{
 		~Nodo();
 		
 	private:
-		int tamaño;
-		//Nodo v[tamaño];
+		int size;
 };
 #endif
