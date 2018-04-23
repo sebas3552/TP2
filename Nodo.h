@@ -8,5 +8,5 @@ class Nodo{
 	private:
 		int tamaño;
 		//Nodo v[tamaño];
-}
+};
 #endif
