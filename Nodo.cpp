@@ -2,7 +2,7 @@
 
 Nodo::Nodo(){
 	size = 34;
-	Nodo v[size];
+	Nodo * v[size];
 }
 
 Nodo::~Nodo(){
