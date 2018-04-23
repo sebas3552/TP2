@@ -7,5 +7,5 @@ class Arbol{
 		
 	private:
 		Nodo * ptrNodo;
-}
+};
 #endif
