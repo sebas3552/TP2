@@ -1,8 +1,8 @@
 #include "Nodo.h"
 
 Nodo::Nodo(){
-	tamaño = 34;
-	Nodo v[tamaño];
+	size = 34;
+	Nodo v[size];
 }
 
 Nodo::~Nodo(){
