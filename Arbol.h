@@ -1,6 +1,5 @@
 #ifndef _ARBOL
 #define _ARBOL
-#include "Nodo.h"
 
 class Arbol{
 	public:
