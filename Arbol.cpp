@@ -1,4 +1,4 @@
-include "Arbol.h"
+#include "Arbol.h"
 
 Arbol::Arbol(){
 	ptrNodo = new Nodo();
