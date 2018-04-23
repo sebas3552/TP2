@@ -1,8 +1,7 @@
 #include "Nodo.h"
 
 Nodo::Nodo(){
-	size = 27;
-	Nodo * v[size];
+	v = new Nodo[SIZE];
 }
 
 Nodo::~Nodo(){
