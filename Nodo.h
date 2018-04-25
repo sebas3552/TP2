@@ -3,16 +3,14 @@
 #include "Palabra.h"
 #include <iostream>
 class Nodo{
-	public:
+	public: 
 		Nodo();
-		~Nodo();
-		void crearCamino(Nodo *, int *, int, int);
-		void imprimirCamino(Nodo &);
-		
+		static void crearCamino(Nodo**, int *, const int, int);
+		static void recorrerCamino(Nodo**) const;
+		static void reconstruirCamino() const;
+		static const int SIZE = 27; //sin caracteres especiales
 	private:
-		static const int SIZE = 27;
-		//Nodo* nodosPtr; //puntero a vector de punteros a nodos
-		Nodo* siguiente;
-		int elemento;
+		static void init(Nodo** );
+		
 };
 #endif

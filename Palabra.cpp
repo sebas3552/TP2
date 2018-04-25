@@ -132,8 +132,5 @@ int * Palabra::getIndices()
 	for(int i = 0; i < length; i++){
 		indices[i] = decodificar(tira[i]);
 	}
-	/**
-	for(int j = 0; j < length; j++)
-		cout << indices[j] << endl;
-	return indices;**/
+	return indices;
 }

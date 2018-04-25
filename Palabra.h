@@ -20,8 +20,8 @@ class Palabra
 		Palabra &operator=(Palabra &);
 		Palabra &operator=(const std::string &);
 		Palabra &operator=(const char *);
-		Palabra & operator+=(const std::string &);
-		Palabra & operator+=(const Palabra &);
+		Palabra &operator+=(const std::string &);
+		Palabra &operator+=(const Palabra &);
 		int getLength();
 		int getLength(const std::string &) const;
 		const char * getCaracteres();

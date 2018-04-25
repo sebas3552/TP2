@@ -1,18 +1,29 @@
 #include "Arbol.h"
-#define SIZE 27
-
+#include <iostream>
 Arbol::Arbol()
-:raiz(nullptr)
 {
+	raiz = new Nodo*[Nodo::SIZE];
+	for(int i = 0; i < Nodo::SIZE-1; i++)
+		raiz[i] = nullptr;
 }
 
-Arbol::~Arbol(){
+Arbol::~Arbol()
+{
 	if( raiz ){
-		delete raiz;
+		for(int i = 0; i < 1000; i++){
+			if(raiz[i])
+				delete raiz[i];
+			else
+				break;
+		}
+		delete [] raiz;
 	}
 }
 
-void Arbol::crearPalabra(int *vectorIndices)
+void Arbol::crearPalabra(Palabra &palabra)
 {
-	raiz = new Nodo [SIZE];
+	int* indices = palabra.getIndices();
+	const int largo = palabra.getLength();
+	int caracterActual = 0;
+	Nodo::crearCamino(raiz, indices, largo, caracterActual);
 }
