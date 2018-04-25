@@ -1,11 +1,18 @@
 #include "Arbol.h"
+#define SIZE 27
 
-Arbol::Arbol(){
-	ptrNodo = new Nodo();
+Arbol::Arbol()
+:raiz(nullptr)
+{
 }
 
 Arbol::~Arbol(){
-	if( ptrNodo ){
-		delete ptrNodo;
+	if( raiz ){
+		delete raiz;
 	}
+}
+
+void Arbol::crearPalabra(int *vectorIndices)
+{
+	raiz = new Nodo [SIZE];
 }

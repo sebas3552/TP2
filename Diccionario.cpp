@@ -48,13 +48,3 @@ void Diccionario::buscar(string &palabra)
 	for(int j = 0; j < length; j++)
 		cout << indices[j] << endl;
 }
-
-int Diccionario::getIndice(char c) const
-{
-	int indice = 0;
-	for(indice; indice < SIZE; indice++){
-		if(caracteres[indice] == c){
-			return indice;
-		}
-	}
-}
