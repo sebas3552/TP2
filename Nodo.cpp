@@ -27,14 +27,27 @@ void Nodo::crearCamino(Nodo** raiz, int* indices, const int largo, int caracterA
 	
 }
 
-void Nodo::recorrerCamino(Nodo** raiz) const
+void Nodo::recorrerCamino(Nodo** raiz)
 { 
 	for(int i = 0; i < SIZE; i++){
 		cout << "i = " << setw(2) << i << " -> " << raiz[i] << endl;
 	}
 }
 
-void Nodo::reconstruirCamino(Nodo** raiz
+void Nodo::reconstruirCamino(Nodo** raiz, Nodo* nodo, int * indices, const int largo, int caracterActual)
+{
+	if(raiz[indices[caracterActual]]){
+		if(caracterActual < largo){
+			nodo = raiz[indices[caracterActual]];
+			cout << "Nodo actual: " << nodo << endl;
+			reconstruirCamino(raiz, nodo, indices, largo, ++caracterActual);
+		}else{
+			cout << "La palabra existe!" << endl;
+		}
+	}else{
+		cout << "La palabra no existe!" << endl;
+	}
+}
 
 void Nodo::init(Nodo** v)
 {

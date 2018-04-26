@@ -6,11 +6,11 @@ class Nodo{
 	public: 
 		Nodo();
 		static void crearCamino(Nodo**, int *, const int, int);
-		static void recorrerCamino(Nodo**) const;
-		static void reconstruirCamino() const;
+		static void recorrerCamino(Nodo**);
+		static void reconstruirCamino(Nodo **, Nodo*, int* indices, const int, int);
 		static const int SIZE = 27; //sin caracteres especiales
 	private:
-		static void init(Nodo** );
+		static void init(Nodo**);
 		
 };
 #endif

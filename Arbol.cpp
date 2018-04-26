@@ -26,4 +26,6 @@ void Arbol::crearPalabra(Palabra &palabra)
 	const int largo = palabra.getLength();
 	int caracterActual = 0;
 	Nodo::crearCamino(raiz, indices, largo, caracterActual);
+	Nodo* nodo = nullptr;
+	Nodo::reconstruirCamino(raiz, nodo, indices, largo, caracterActual);
 }
