@@ -7,6 +7,7 @@ class Arbol{
 		Arbol();
 		~Arbol();
 		void crearPalabra(Palabra &);
+		void verificarPalabra(Palabra &) const;
 	private:
 		Nodo** raiz; //puntero a un vector de punteros a Nodo
 };

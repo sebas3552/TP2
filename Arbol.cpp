@@ -3,7 +3,7 @@
 Arbol::Arbol()
 {
 	raiz = new Nodo*[Nodo::SIZE];
-	for(int i = 0; i < Nodo::SIZE-1; i++)
+	for(int i = 0; i < Nodo::SIZE; i++)
 		raiz[i] = nullptr;
 }
 
@@ -26,6 +26,13 @@ void Arbol::crearPalabra(Palabra &palabra)
 	const int largo = palabra.getLength();
 	int caracterActual = 0;
 	Nodo::crearCamino(raiz, indices, largo, caracterActual);
-	Nodo* nodo = nullptr;
-	Nodo::reconstruirCamino(raiz, nodo, indices, largo, caracterActual);
+	Nodo* nodo = nullptr; 
+}
+
+void Arbol::verificarPalabra(Palabra &palabra) const
+{
+	int * indices = palabra.getIndices();
+	const int largo = palabra.getLength();
+	int caracterActual = 0;
+	Nodo::reconstruirCamino(raiz, indices, largo, caracterActual);
 }
