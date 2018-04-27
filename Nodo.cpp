@@ -4,6 +4,7 @@
 using namespace std;
 
 Nodo::Nodo()
+: siguiente(nullptr), indice(0)
 {
 }
 
@@ -12,18 +13,26 @@ void Nodo::crearCamino(Nodo** raiz, int* indices, const int largo, int caracterA
 	cout << "Caracteractual: " << caracterActual << endl;
 	cout << "indices[i]: " << indices[caracterActual] << endl;
 	if(caracterActual < largo-1){
-		Nodo** siguiente = new Nodo*[SIZE];		//crea un nuevo vector de punteros 
-		Nodo::init(siguiente);					//elimina la basura
-		siguiente[indices[++caracterActual]] = new Nodo();	//crea un nodo en la posición del caracter correspondiente del nuevo vector
-		raiz[indices[caracterActual-1]] = siguiente[indices[caracterActual]];  //establece el puntero del vector anterior hacia el nuevo
-		recorrerCamino(raiz); //prueba la creacion de los vectores de punteros
-		cout << "Nodo actual: " << raiz[indices[caracterActual-1]] << endl;
-		crearCamino(siguiente, indices, largo, caracterActual);	//repite el proceso con el nuevo vector como raiz hasta que se alcance el final de la palabra
+		if(!raiz[indices[caracterActual]]){
+			raiz[indices[caracterActual]] = new Nodo();
+			raiz[indices[caracterActual]]->indice = indices[caracterActual];
+		}
+		if(!raiz[indices[caracterActual]->siguiente]){
+			Nodo** siguiente = new Nodo*[SIZE];	
+			Nodo::init(siguiente);	
+		}
+		siguiente[indices[++caracterActual]] = new Nodo();
+		raiz[indices[caracterActual-1]]->siguiente = siguiente[indices[caracterActual]]; 
+		siguiente[indices[caracterActual]]->indice = indices[caracterActual];
+		recorrerCamino(raiz);
+		cout << "Nodo actual: " << siguiente[indices[caracterActual]] << endl;
+		crearCamino(siguiente, indices, largo, caracterActual);
 	}
 	else{
-		cout << "Raiz ultimo: " << raiz[SIZE-1] << endl;
+		raiz[indices[caracterActual]]->indice = indices[caracterActual];
 		raiz[SIZE-1] = new Nodo();	 //crea un nuevo nodo en la ultima posicion y
-		raiz[SIZE-1] = raiz[SIZE-1]; //apunta a si mismo	
+		raiz[SIZE-1]->siguiente = raiz[SIZE-1]; //apunta a si mismo	
+		raiz[SIZE-1]->indice = SIZE-1;
 		recorrerCamino(raiz);
 		cout << "La palabra se agrego correctamente!" << endl;
 	}
@@ -33,26 +42,21 @@ void Nodo::crearCamino(Nodo** raiz, int* indices, const int largo, int caracterA
 void Nodo::recorrerCamino(Nodo** raiz)
 { 
 	for(int i = 0; i < SIZE; i++){
-		cout << "i = " << setw(2) << i << " -> " << raiz[i] << endl;
+		cout << "i = " << setw(2) << i << " -> " << (raiz[i]? raiz[i]->siguiente : 0) << endl;
 	}
 }
 
-void Nodo::reconstruirCamino(Nodo** raiz, int * indices, const int largo, int caracterActual)
-{	//NO FUNCIONA
-	cout << "caracterActual: " << caracterActual << endl;
-	cout << "condicion?: " << boolalpha << raiz[SIZE-1] << endl;
-	if(raiz[indices[caracterActual]]){
-		if(!raiz[SIZE-1] && caracterActual < largo-1){
-			Nodo** siguiente = new Nodo*[SIZE];
-			init(siguiente);
-			siguiente[indices[++caracterActual]] = raiz[indices[caracterActual-1]];
-			cout << "Nodo actual: " << siguiente[indices[caracterActual]] << endl;
-			reconstruirCamino(siguiente, indices, largo, caracterActual);
-		}else{
-			cout << "La palabra existe!" << endl;
-		}
+bool Nodo::reconstruirCamino(Nodo* primero, int* indices, const int largo, int caracterActual)
+{	
+	//cout << caracterActual << endl;
+	//cout << "indices caracterActual: " << indices[caracterActual] << endl;
+	if(primero && primero->indice == indices[caracterActual] && caracterActual < largo && primero->siguiente){
+		Nodo* siguiente = primero->siguiente;
+		//cout << "Mi indice: " << primero->indice << endl;
+		//cout << "Yo le apunto a: " << primero->siguiente << endl;
+		reconstruirCamino(siguiente, indices, largo, ++caracterActual);
 	}else{
-		cout << "La palabra no existe!" << endl;
+		return (caracterActual == largo-1 && primero->indice == indices[caracterActual]? true : false );
 	}
 }
 

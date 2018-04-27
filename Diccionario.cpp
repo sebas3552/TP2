@@ -29,22 +29,17 @@ string Diccionario::operator[](string &palabra)
 	//TO-DO
 }
 
-string operator+=(string &palabra, Diccionario &)
+string Diccionario::operator[](Palabra palabra&)
+{
+	
+}
+
+string operator+=(string &palabra, Diccionario diccionario&)
 {
 	//TO-DO
 }
 
-void Diccionario::buscar(string &palabra)
+string operator+=(Palabra palabra&, Diccionario diccionario&)
 {
-	if(indices)
-		delete[] indices;
-	int length = palabra.size();
-	indices = new int[length];
-	const char * tira = palabra.c_str();
-	for(int i = 0; i < length; i++){
-		indices[i] = getIndice(tira[i]);
-	}
 	
-	for(int j = 0; j < length; j++)
-		cout << indices[j] << endl;
 }

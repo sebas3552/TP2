@@ -6,7 +6,7 @@ using namespace std;
 
 ostream &operator<<(ostream &salida, Palabra &tira)
 {
-	salida << tira.palabra << endl;
+	salida << tira.palabra;
 	return salida;
 }
 

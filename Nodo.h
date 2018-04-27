@@ -7,10 +7,12 @@ class Nodo{
 		Nodo();
 		static void crearCamino(Nodo**, int *, const int, int);
 		static void recorrerCamino(Nodo**);
-		static void reconstruirCamino(Nodo **, int* indices, const int, int);
+		static bool reconstruirCamino(Nodo*, int*, const int, int);
 		static const int SIZE = 27; //sin caracteres especiales
 	private:
 		static void init(Nodo**);
+		Nodo* siguiente;
+		int indice;
 		
 };
 #endif
