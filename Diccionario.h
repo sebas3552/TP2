@@ -33,17 +33,17 @@ class Diccionario
 		* @return true si la Palabra está, false en caso contrario.
 		*/
 		bool operator[](const char *v) const;
-		/**Operador [] sobrecargado para añadir palabras al diccionario.
+		/**Operador += sobrecargado para añadir palabras al diccionario.
 		* @param tira Palabra que se desea añadir al diccionario, mediante un string.
 		* @return El diccionario modificado, útil para invocar funciones en cascada.
 		*/
 		Diccionario& operator+=(std::string &tira); 
-		/**Operador [] sobrecargado para añadir palabras al diccionario.
+		/**Operador += sobrecargado para añadir palabras al diccionario.
 		* @param palabra Palabra que se desea añadir directamente al diccionario.
 		* @return El diccionario modificado, útil para invocar funciones en cascada.
 		*/
 		Diccionario& operator+=(Palabra &palabra);
-		/**Operador [] sobrecargado para añadir palabras al diccionario.
+		/**Operador += sobrecargado para añadir palabras al diccionario.
 		* @param v Palabra que se desea añadir al diccionario, mediante una cadena de caracteres.
 		* @return El diccionario modificado, útil para invocar funciones en cascada.
 		*/
