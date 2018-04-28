@@ -5,41 +5,48 @@
 using namespace std;
 
 Diccionario::Diccionario()
-: arbol(nullptr)
 {
-	
-}
-
-Diccionario::Diccionario(std::fstream &)
-: arbol(nullptr)
-{
-	//TO-DO
+	arbol = new Arbol();
 }
 
 Diccionario::~Diccionario()
 {
-	if(arbol)
-		delete arbol;
-	if(indices)
-		delete [] indices;
+	delete arbol;
 }
 
-string Diccionario::operator[](string &palabra)
+bool Diccionario::operator[](string &tira) const
 {
-	//TO-DO
+	Palabra p(tira);
+	return arbol->verificar(p);
 }
 
-string Diccionario::operator[](Palabra palabra&)
+bool Diccionario::operator[](Palabra &palabra) const
 {
-	
+	return arbol->verificar(palabra);
 }
 
-string operator+=(string &palabra, Diccionario diccionario&)
+bool Diccionario::operator[](const char *v) const
 {
-	//TO-DO
+	Palabra p(v);
+	return arbol->verificar(p);
 }
 
-string operator+=(Palabra palabra&, Diccionario diccionario&)
+Diccionario &Diccionario::operator+=(string &tira)
 {
-	
+	Palabra p(tira);
+	arbol->agregar(p);
+	return *this;
+}
+
+Diccionario &Diccionario::operator+=(Palabra &palabra)
+{
+	arbol->agregar(palabra);
+	return *this;
+}
+
+Diccionario &Diccionario::operator+=(const char *v)
+{
+	Palabra p(v);
+	arbol->agregar(p);
+	return *this;
 }

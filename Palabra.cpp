@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include "Palabra.h"
 
 using namespace std;
@@ -48,45 +47,57 @@ Palabra::~Palabra()
 
 bool Palabra::operator==(const string &tira) const
 {
-	return this->palabra == tira;
+	return palabra == tira;
 }
 
 bool Palabra::operator==(const Palabra &otra) const
 {
-	return this->palabra == otra.palabra;
+	return palabra == otra.palabra;
+}
+
+bool Palabra::operator==(const char *v) const
+{
+	string tira = v;
+	return palabra == tira;
 }
 
 Palabra &Palabra::operator=(Palabra &otra)
 {
-	this->palabra = otra.palabra;
-	this->length = otra.length;
+	palabra = otra.palabra;
+	length = otra.length;
 	return *this;
 }
 
 Palabra &Palabra::operator=(const string &tira)
 {
-	this->palabra = tira;
-	this->length += getLength(tira);
+	palabra = tira;
+	length += getLength(tira);
 	return *this;
 }
 
 Palabra &Palabra::operator=(const char *v)
 {
-	this->palabra = v;
-	this->length = getLength();
+	palabra = v;
+	length = getLength();
 	return *this;
 }
 
 Palabra &Palabra::operator+=(const string &tira)
 {
-	this->palabra += tira;
+	palabra += tira;
 	length += getLength(tira);
 }
 
 Palabra &Palabra::operator+=(const Palabra &otra)
 {
-	this->palabra += otra.palabra;
-	this->length += otra.length;
+	palabra += otra.palabra;
+	length += otra.length;
+}
+
+Palabra &Palabra::operator+=(const char *v)
+{
+	string tira = v;
+	palabra += tira;
 }
 
 int Palabra::getLength()
@@ -107,20 +118,15 @@ int Palabra::getLength(const string &tira)const
 		i++;
 	return i;
 }
-const char * Palabra::getCaracteres()
-{
-	const char *v = palabra.c_str();
-	return v;
-}
+
 
 int Palabra::decodificar(char c) const
 {
 	int indice = 0;
 	for(indice; indice < SIZE; indice++){
-		if(caracteres[indice] == c){
+		if(caracteres[indice] == c)
 			return (indice <= SIZE? indice : -1);
 		}
-	}
 }
 
 int * Palabra::getIndices()
