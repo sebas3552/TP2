@@ -34,7 +34,7 @@ bool Diccionario::operator[](const char *v) const
 Diccionario &Diccionario::operator+=(string &tira)
 {
 	Palabra p(tira);
-	arbol->agregar(p);
+	arbol->agregar(p); 
 	return *this;
 }
 
@@ -49,4 +49,9 @@ Diccionario &Diccionario::operator+=(const char *v)
 	Palabra p(v);
 	arbol->agregar(p);
 	return *this;
+}
+
+void Diccionario::imprimirCamino(Palabra &palabra) const
+{
+	arbol->verCamino(palabra);
 }

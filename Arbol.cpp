@@ -1,4 +1,5 @@
 #include "Arbol.h"
+#include <iostream>
 using namespace std;
 Arbol::Arbol()
 {
@@ -24,4 +25,15 @@ bool Arbol::verificar(Palabra &palabra) const
 	const int largo = palabra.getLength();
 	int caracterActual = 0;
 	return raiz->recorrerCamino(*raiz, indices, largo, caracterActual);
+}
+
+void Arbol::verCamino(Palabra &palabra) const
+{
+	int * indices = palabra.getIndices();
+	const int largo = palabra.getLength();
+	int caracterActual = 0;
+	if(raiz->recorrerCamino(*raiz, indices, largo, caracterActual))
+		raiz->recorrerCamino(*raiz, indices, largo, caracterActual, 1);
+	else
+		cerr << "La palabra " << "\"" << palabra << "\"" << " no existe en el diccionario!" << endl;
 }

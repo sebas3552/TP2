@@ -36,7 +36,18 @@ class Nodo{
 		* @param caracterActual Número de caracter por el que se va creando el camino de vectores de punteros.
 		* @return true si la palabra existe, falso en caso contrario.
 		*/
-		bool recorrerCamino(Nodo&raiz, int*indices, const int largo, int caracterActual) const;
+		bool recorrerCamino(Nodo &raiz, int *indices, const int largo, int caracterActual, int verCamino = 0) const;
+		/**Función utilitaria para imprimir el camino de punteros a Nodo a través del cual se forma una palabra, si existe en el árbol de Nodos.
+		* Al imprimir el contenido de cada vector de punteros por el cual se forma una palabra, el caracter 'X' (mayúscula) indica que el puntero en 
+		* esa posición corresponde a la palabra que se está buscando. El caracter 'x' (minúscula) indica que existe otro puntero, pero no forma parte 
+		* de la palabra en cuestión (representa a otro caracter no nulo). El caracter 'o' indica que en ese subíndice del vector de punteros no hay un 
+		* puntero, es decir, que no hay palabras por ese camino.
+		* @param nodo Nodo raíz para el cual se quiere expandir el camino.
+		* @param indices Vector de índices que corresponden a cada caracter de la palabra.
+		* @param caracterActual Número de caracter por el que se va creando el camino de vectores de punteros, necesario para determinar si un nodo es parte de 
+		* la palabra que se está buscando o no.
+		*/
+		void expandirCamino(Nodo &nodo, int *indices, int caracterActual) const;
 		/**Tamaño de los vectores de punteros.*/
 		static const int SIZE = 34;
 		

@@ -22,6 +22,10 @@ class Arbol{
 		* @return true si la Palabra existe en el diccionario, false en caso contrario.
 		*/
 		bool verificar(Palabra &palabra) const;
+		/**Función utilitaria para desplegar el camino que sigue una palabra a través de los vectores de punteros, en caso de que la palabra exista en el diccionario.
+		* @param palabra Palabra para la cual se quiere desplegar el camino de punteros a nodos que la conforman por la salida estándar de consola.
+		*/
+		void verCamino(Palabra &palabra) const;
 	private:
 		/**Puntero a Nodo, que es la raíz del árbol en el que se alojan las palabras.*/
 		Nodo* raiz; 

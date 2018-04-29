@@ -1,6 +1,7 @@
 #include <string>
 #include "Palabra.h"
-
+#include <iostream>
+#include <stdexcept>
 using namespace std;
 
 ostream &operator<<(ostream &salida, Palabra &tira)
@@ -119,14 +120,18 @@ int Palabra::getLength(const string &tira)const
 	return i;
 }
 
-
 int Palabra::decodificar(char c) const
 {
 	int indice = 0;
 	for(indice; indice < SIZE; indice++){
-		if(caracteres[indice] == c)
+		if(caracteres[indice] == c){
 			return (indice <= SIZE? indice : -1);
+		}else{
+			if(indice == SIZE-1){
+				throw new invalid_argument("Palabra invalida!");
+			}
 		}
+	}
 }
 
 int * Palabra::getIndices()
@@ -136,7 +141,12 @@ int * Palabra::getIndices()
 	indices = new int[length]();
 	const char * tira = palabra.c_str();
 	for(int i = 0; i < length; i++){
-		indices[i] = decodificar(tira[i]);
+		try{
+			indices[i] = decodificar(tira[i]);
+		}catch(invalid_argument &e){
+			cout << e.what() << endl;
+			exit(1);
+		}
 	}
 	return indices;
 }

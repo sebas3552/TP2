@@ -68,14 +68,18 @@ void Nodo::crearCamino(Nodo &raiz, int* indices, const int largo, int caracterAc
 	
 }
 
-bool Nodo::recorrerCamino(Nodo& primero, int* indices, const int largo, int caracterActual) const
+bool Nodo::recorrerCamino(Nodo& primero, int* indices, const int largo, int caracterActual, int verCamino) const
 {	
 	if(primero.vector[indices[caracterActual]] && primero.vector[indices[caracterActual]]->siguiente && primero.vector[indices[caracterActual]]->indice == indices[caracterActual] && caracterActual < largo){
 		if(primero.vector[SIZE-1] && caracterActual == largo-1 && primero.vector[indices[caracterActual]]->indice == indices[caracterActual]){ //si la palabra forma parte de otra palabra
+			if(verCamino)
+				expandirCamino(primero, indices, caracterActual);
 			return true;
 		}else{	//sino, sigue recorriendo el camino
 			Nodo* siguiente = primero.vector[indices[caracterActual]]->siguiente;
-			recorrerCamino(*siguiente, indices, largo, ++caracterActual);
+			if(verCamino)
+				expandirCamino(primero, indices, caracterActual);
+			recorrerCamino(*siguiente, indices, largo, ++caracterActual, verCamino);
 		}
 	}else{
 		/*Para confirmar que el camino recorrido es el de la palabra que se está buscando, se debe cumplir que: 
@@ -84,6 +88,27 @@ bool Nodo::recorrerCamino(Nodo& primero, int* indices, const int largo, int cara
 		* Que exista el nodo que apunta a sí mismo en la última posición del vector de punteros a nodos ($).
 		* Que el índice (número de caracter) del nodo sea igual al último caracter de la palabra que se está buscando.
 		*/
+		if(verCamino)
+			expandirCamino(primero, indices, caracterActual);
 		return (caracterActual == largo-1 && primero.vector[indices[caracterActual]] && primero.vector[SIZE-1] && primero.vector[indices[caracterActual]]->indice == indices[caracterActual]? true : false );
 	}
 }
+
+void Nodo::expandirCamino(Nodo &nodo, int * indices, int caracterActual) const
+{
+	cout << endl;
+	char caracter;
+	for(int i = 0; i < SIZE; i++){
+		/*Si existe un nodo*/
+		if(nodo.vector[i]){
+		/*Si el nodo es parte de la palabra que estoy buscando*/
+		caracter = (nodo.vector[i]->indice == indices[caracterActual]? 'X' : 'x');
+		cout << setw(2) << i << " -> " << caracter << endl;
+		}else{
+			caracter = 'o';
+			cout << setw(2) << i << " -> " << caracter << endl;
+		}
+	}
+	cout << endl;
+}
+

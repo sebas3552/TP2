@@ -48,6 +48,10 @@ class Diccionario
 		* @return El diccionario modificado, útil para invocar funciones en cascada.
 		*/
 		Diccionario& operator+=(const char *v);
+		/**Función utilitaria para imprimir el camino de vectores de punteros a Nodo a través del cual se forma una palabra, si existe en el diccionario.
+		* @param palabra Palabra para la que se quiere imprimir el camino de punteros a Nodo.
+		*/
+		void imprimirCamino(Palabra &palabra) const;
 	
 	private:
 		/**Puntero a un objeto Arbol, que a su vez tiene un Nodo.*/
