@@ -72,36 +72,37 @@ class Palabra
 		* @return la misma Palabra modificada.
 		*/
 		Palabra &operator+=(const char *v);
-		/** Función utilitaria que cuenta los caracteres de la Palabra sobre la que se invoca.
-		* @return Cantidad de caracteres de la Palabra (largo). 
-		*/
-		int getLength();
 		/**
 		* Función utilitaria que cuenta los caracteres de un string cualquiera.
 		* @param tira String a la que se contarán los caracteres.
 		* @return Cantidad de caracteres del string (largo).
 		*/
 		int getLength(const std::string &tira) const;
-		/**	Función que crea un vector con tantas celdas como caracteres tenga la Palabra, 
-		* que contiene los índices de los caracteres según el número que corresponde a cada 
-		* caracter, de acuerdo con la ilustración del enunciado.
-		* @return Puntero a un vector de indices, útil para trazar el camino de los vectores de punteros.
-		*/
-		int * getIndices();
-		
-	private:
+		/**Vector de índices, según el número correspondiente a cada caracter.*/
+		int * indices;
 		/**Largo de la Palabra.*/
 		int length;
+		
+	private:
 		/**Constante que representa el largo del vector de caracteres.*/
 		static const int SIZE = 34;
 		/**String que representa el contenido de la Palabra.*/
 		std::string palabra;
-		/**Vector de índices, según el número correspondiente a cada caracter.*/
-		int * indices;
 		/**Vector constante de caracteres, según lo especificado en el enunciado.*/
 		const char caracteres[SIZE] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
 		's', 't', 'u', 'v', 'w', 'x', 'y', 'z', (char) 160, (char) 130, (char) 161, (char) 162, (char) 163, (char) 129, (char) 164, '$'}; 
 		/**Función que devuelve el número asociado al caracter que recibe como parámetro.*/
 		int decodificar(char c) const;	
+		/** Función utilitaria que cuenta los caracteres de la Palabra sobre la que se invoca.
+		* @return Cantidad de caracteres de la Palabra (largo). 
+		*/
+		int getLength();
+		/**	Función que crea un vector con tantas celdas como caracteres tenga la Palabra, 
+		* que contiene los índices de los caracteres según el número que corresponde a cada 
+		* caracter, de acuerdo con la ilustración del enunciado.
+		* @return Puntero a un vector de indices, útil para trazar el camino de los vectores de punteros.
+		*/
+		void getIndices();
+		
 };
 #endif

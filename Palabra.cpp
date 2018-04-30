@@ -2,6 +2,7 @@
 #include "Palabra.h"
 #include <iostream>
 #include <stdexcept>
+#include <exception>
 using namespace std;
 
 ostream &operator<<(ostream &salida, Palabra &tira)
@@ -19,6 +20,7 @@ Palabra::Palabra(const string &tira)
 : palabra(tira), indices(nullptr)
 {
 	length = getLength(tira);
+	getIndices();
 }
 
 Palabra::Palabra(const char *v)
@@ -26,6 +28,7 @@ Palabra::Palabra(const char *v)
 {
 	palabra = v;
 	length = getLength();
+	getIndices();
 }
 
 Palabra::Palabra(Palabra &otra)
@@ -106,7 +109,14 @@ int Palabra::getLength()
 	const char *v = palabra.c_str();
 	int i = 0;
 	while(v[i]){
-		i++;
+		if(i == 0 && v[i] == (char) 32){
+			throw new invalid_argument("La palabra no puede empezar con espacios en blanco!");
+		}else{
+			if(v[i] == (char) 32)
+				break;
+			else
+				i++;
+		}
 	}
 	return i;
 }
@@ -127,17 +137,15 @@ int Palabra::decodificar(char c) const
 		if(caracteres[indice] == c){
 			return (indice <= SIZE? indice : -1);
 		}else{
-			if(indice == SIZE-1){
+			if(indice == SIZE-1 && c != ' '){
 				throw new invalid_argument("Palabra invalida!");
 			}
 		}
 	}
 }
 
-int * Palabra::getIndices()
+void Palabra::getIndices()
 {
-	if(indices)
-		delete[] indices;
 	indices = new int[length]();
 	const char * tira = palabra.c_str();
 	for(int i = 0; i < length; i++){
@@ -145,8 +153,6 @@ int * Palabra::getIndices()
 			indices[i] = decodificar(tira[i]);
 		}catch(invalid_argument &e){
 			cout << e.what() << endl;
-			exit(1);
 		}
 	}
-	return indices;
 }

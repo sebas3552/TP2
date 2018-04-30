@@ -14,11 +14,10 @@ class Texto{
 		
 	private:
 		std::fstream diccionario;
-		std::string * vectorString;
 		int dimensionDiccionario;
 		std::string nombreDiccionario;
 		int cantidadPalabras();
-		void separarStrings();
+		std::string* separarStrings();
 		char * convertirMinusculas( std::string );
 };
 #endif

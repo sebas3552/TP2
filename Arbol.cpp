@@ -13,27 +13,21 @@ Arbol::~Arbol()
 
 void Arbol::agregar(Palabra &palabra)
 {
-	int* indices = palabra.getIndices();
-	const int largo = palabra.getLength();
 	int caracterActual = 0;
-	raiz->crearCamino(*raiz, indices, largo, caracterActual);
+	raiz->crearCamino(*raiz, palabra.indices, palabra.length, caracterActual);
 }
 
 bool Arbol::verificar(Palabra &palabra) const
 {
-	int * indices = palabra.getIndices();
-	const int largo = palabra.getLength();
 	int caracterActual = 0;
-	return raiz->recorrerCamino(*raiz, indices, largo, caracterActual);
+	return raiz->recorrerCamino(*raiz, palabra.indices, palabra.length, caracterActual);
 }
 
 void Arbol::verCamino(Palabra &palabra) const
 {
-	int * indices = palabra.getIndices();
-	const int largo = palabra.getLength();
 	int caracterActual = 0;
-	if(raiz->recorrerCamino(*raiz, indices, largo, caracterActual))
-		raiz->recorrerCamino(*raiz, indices, largo, caracterActual, 1);
+	if(raiz->recorrerCamino(*raiz, palabra.indices, palabra.length, caracterActual))
+		raiz->recorrerCamino(*raiz, palabra.indices, palabra.length, caracterActual, 1);
 	else
 		cerr << "La palabra " << "\"" << palabra << "\"" << " no existe en el diccionario!" << endl;
 }

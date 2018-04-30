@@ -1,4 +1,5 @@
 #include "Texto.h"
+#include <iostream>
 
 using namespace std;
 
@@ -8,15 +9,12 @@ Texto::Texto( const char * nombreDiccionario ){
 }
 
 Texto::~Texto(){
-	if( vectorString )
-		delete [] vectorString;
+
 }
 
-void Texto::separarStrings(){
+std::string* Texto::separarStrings(){
 	diccionario.open( nombreDiccionario );
-	
-	vectorString = new string[ dimensionDiccionario ];
-	
+	string *vectorString = new string[ dimensionDiccionario ];
 	for( int i = 0; i < dimensionDiccionario; i++ ){
 		string s;
 		getline( diccionario, s );
@@ -24,6 +22,7 @@ void Texto::separarStrings(){
 	}
 	
 	diccionario.close();
+	return vectorString;
 }
 
 char * Texto::convertirMinusculas( string aConvertir ){
@@ -49,10 +48,13 @@ char * Texto::convertirMinusculas( string aConvertir ){
 }
 
 void Texto::agregarPalabrasDiccionario( Diccionario & diccionario ){
-	separarStrings();
+	string* vectorString = separarStrings();
 	
-	for( int i = 0; i < dimensionDiccionario; i++  )
+	for( int i = 0; i < dimensionDiccionario; i++  ){
 		diccionario += convertirMinusculas( vectorString[i] );
+		cout << "Se agrego " << convertirMinusculas(vectorString[i]) << " al diccionario!" << endl; 
+	}
+	delete [] vectorString;
 }
 
 int Texto::cantidadPalabras(){

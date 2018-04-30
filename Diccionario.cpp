@@ -1,6 +1,5 @@
 #include "Diccionario.h"
 #include <string>
-#include <fstream>
 #include <iostream>
 using namespace std;
 
@@ -53,5 +52,6 @@ Diccionario &Diccionario::operator+=(const char *v)
 
 void Diccionario::imprimirCamino(Palabra &palabra) const
 {
+	cout << "Palabra: " << palabra << endl;
 	arbol->verCamino(palabra);
 }
