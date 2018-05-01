@@ -13,11 +13,10 @@ Texto::~Texto(){
 Diccionario &Texto::cargarDiccionario(string nombreDiccionario, Diccionario &diccionario){
 	fstream archivoDiccionario(nombreDiccionario);
 	if(!archivoDiccionario){
-		throw new invalid_argument("El archivo indicado no existe!");
-		exit(1);
+		throw invalid_argument("El archivo indicado no existe!");
 	}
 	string s;
-	int palabrasAgregadas = 1;
+	int palabrasAgregadas = 0;
 	while(getline( archivoDiccionario, s )){
 		diccionario += convertirMinusculas(s);
 		palabrasAgregadas++;

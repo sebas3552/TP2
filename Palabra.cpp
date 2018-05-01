@@ -134,8 +134,12 @@ int Palabra::decodificar(char c) const
 {
 	int indice = 0;
 	for(indice; indice < SIZE; indice++){
-		if(caracteres[indice] == c)
+		if(caracteres[indice] == c){
 			return (indice <= SIZE? indice : -1);
+		}else{
+			if(indice == SIZE-1)
+				throw invalid_argument("Entrada inválida!");
+		}
 	}
 }
 
@@ -154,7 +158,9 @@ void Palabra::getIndices()
 			}
 			charActual++;
 		}catch(invalid_argument &e){
-			cout << e.what() << endl;
+			cerr << e.what() << endl;
+			cerr << "No se pudo agregar la palabra " << "\"" << tira << "\"" <<endl;
+			exit(1);
 		}
 	}
 	length -= caracteresRaros;
@@ -163,7 +169,7 @@ void Palabra::getIndices()
 int Palabra::caracteresEspeciales(const char *v) const
 {
 	int caracteresEspeciales = 0;
-	for(int i = 0; i < 30 && v[i]; i++){
+	for(int i = 0; v[i]; i++){
 		if((int) v[i] < 0){
 			caracteresEspeciales++;
 			i++; //siempre vienen en parejas
@@ -175,24 +181,31 @@ int Palabra::caracteresEspeciales(const char *v) const
 char Palabra::determinarCaracter(int c) const
 {
 	switch(c){
+		case -127:
 		case -95: 
 			return (char) 160;
 			break;
+		case -119:
 		case -87:
 			return (char) 130;
 			break;
+		case -115:
 		case -83:
 			return (char) 161;
 			break;
+		case -109:
 		case -77:
 			return (char) 162;
 			break;
+		case -102:
 		case -70:
 			return (char) 163;
 			break;
+		case -100:
 		case -68:
 			return (char) 129;
 			break;
+		case -111:
 		case -79:
 			return (char) 164;
 	}
