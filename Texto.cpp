@@ -3,31 +3,32 @@
 
 using namespace std;
 
-Texto::Texto( const char * nombreDiccionario ){
-	this->nombreDiccionario = nombreDiccionario;
-	dimensionDiccionario = cantidadPalabras();
+Texto::Texto(){
 }
 
 Texto::~Texto(){
 
 }
 
-std::string* Texto::separarStrings(){
-	diccionario.open( nombreDiccionario );
-	string *vectorString = new string[ dimensionDiccionario ];
-	for( int i = 0; i < dimensionDiccionario; i++ ){
-		string s;
-		getline( diccionario, s );
-		vectorString[i] = s;
+Diccionario &Texto::cargarDiccionario(string nombreDiccionario, Diccionario &diccionario){
+	fstream archivoDiccionario(nombreDiccionario);
+	if(!archivoDiccionario){
+		throw new invalid_argument("El archivo indicado no existe!");
+		exit(1);
 	}
-	
-	diccionario.close();
-	return vectorString;
+	string s;
+	int palabrasAgregadas = 1;
+	while(getline( archivoDiccionario, s )){
+		diccionario += convertirMinusculas(s);
+		palabrasAgregadas++;
+	}
+	archivoDiccionario.close();
+	cout << "Se agregaron " << palabrasAgregadas << " palabras al diccionario!" << endl;
+	return diccionario;
 }
 
 char * Texto::convertirMinusculas( string aConvertir ){
 	const char * cadena = aConvertir.c_str();
-	
 	int longitudPalabra = 0;
 	while( cadena[ longitudPalabra ] ){
 		++longitudPalabra;
@@ -45,26 +46,4 @@ char * Texto::convertirMinusculas( string aConvertir ){
 	v[i] = '\0';
 	
 	return v;
-}
-
-void Texto::agregarPalabrasDiccionario( Diccionario & diccionario ){
-	string* vectorString = separarStrings();
-	
-	for( int i = 0; i < dimensionDiccionario; i++  ){
-		diccionario += convertirMinusculas( vectorString[i] );
-		cout << "Se agrego " << convertirMinusculas(vectorString[i]) << " al diccionario!" << endl; 
-	}
-	delete [] vectorString;
-}
-
-int Texto::cantidadPalabras(){
-	diccionario.open( nombreDiccionario );
-	int palabras = 0;
-	string s;
- 	
-	while( getline( diccionario, s ) )
-		++palabras;
-	
-	diccionario.close();
-	return palabras;
 }

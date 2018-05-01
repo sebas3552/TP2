@@ -39,7 +39,6 @@ class Nodo{
 		bool recorrerCamino(Nodo &raiz, int *indices, const int largo, int caracterActual, int verCamino = 0) const;
 		/**Tamaño de los vectores de punteros.*/
 		static const int SIZE = 34;
-		
 	private:
 		/**Puntero a un vector de punteros a Nodos.*/
 		Nodo** vector;

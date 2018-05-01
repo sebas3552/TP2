@@ -86,6 +86,8 @@ class Palabra
 	private:
 		/**Constante que representa el largo del vector de caracteres.*/
 		static const int SIZE = 34;
+		/**Constante que representa el valor -61, que precede a cualquier caracter especial promovido a int incluído en los requisitos para esta tarea.*/
+		static const int CARACTER_RARO = -61;
 		/**String que representa el contenido de la Palabra.*/
 		std::string palabra;
 		/**Vector constante de caracteres, según lo especificado en el enunciado.*/
@@ -103,6 +105,16 @@ class Palabra
 		* @return Puntero a un vector de indices, útil para trazar el camino de los vectores de punteros.
 		*/
 		void getIndices();
+		/**Función utilitaria que analiza cada Palabra en búsqueda de caracteres especiales (tildes, ñ,û) para contabilizarlos.
+		* @param v Cadena de caracteres a la que cuenta las incidencias de caracteres especiales.
+		* @return Cantidad de caracteres especiales encontrados en la cadena de caracteres, o cero si no encontró ninguno.
+		*/
+		int caracteresEspeciales(const char *v) const;
+		/** Función que traduce manualmente cada caracter especial a su respectivo código de ASCII, para que la función decodificar pueda interpretarlos correctamente.
+		*@param c Número que identifica el caracter especial sin "traducir".
+		*@return El número que ingresó como argumento convertido a su respectivo código en ASCII.
+		*/
+		char determinarCaracter(int c) const;
 		
 };
 #endif

@@ -1,5 +1,5 @@
-#include <string>
 #include "Palabra.h"
+#include <string>
 #include <iostream>
 #include <stdexcept>
 #include <exception>
@@ -134,25 +134,66 @@ int Palabra::decodificar(char c) const
 {
 	int indice = 0;
 	for(indice; indice < SIZE; indice++){
-		if(caracteres[indice] == c){
+		if(caracteres[indice] == c)
 			return (indice <= SIZE? indice : -1);
-		}else{
-			if(indice == SIZE-1 && c != ' '){
-				throw new invalid_argument("Palabra invalida!");
-			}
-		}
 	}
 }
 
 void Palabra::getIndices()
 {
-	indices = new int[length]();
 	const char * tira = palabra.c_str();
-	for(int i = 0; i < length; i++){
+	int caracteresRaros = caracteresEspeciales(tira);
+	indices = new int[length-caracteresRaros]();
+	int charActual = 0;
+	for(int i = 0; i < length-caracteresRaros; i++){
 		try{
-			indices[i] = decodificar(tira[i]);
+			if((int) tira[charActual] == CARACTER_RARO){
+				indices[i] = decodificar(determinarCaracter((int) tira[++charActual]));
+			}else{
+				indices[i] = decodificar(tira[charActual]);
+			}
+			charActual++;
 		}catch(invalid_argument &e){
 			cout << e.what() << endl;
 		}
+	}
+	length -= caracteresRaros;
+}
+
+int Palabra::caracteresEspeciales(const char *v) const
+{
+	int caracteresEspeciales = 0;
+	for(int i = 0; i < 30 && v[i]; i++){
+		if((int) v[i] < 0){
+			caracteresEspeciales++;
+			i++; //siempre vienen en parejas
+		}
+	}
+	return caracteresEspeciales;
+}
+
+char Palabra::determinarCaracter(int c) const
+{
+	switch(c){
+		case -95: 
+			return (char) 160;
+			break;
+		case -87:
+			return (char) 130;
+			break;
+		case -83:
+			return (char) 161;
+			break;
+		case -77:
+			return (char) 162;
+			break;
+		case -70:
+			return (char) 163;
+			break;
+		case -68:
+			return (char) 129;
+			break;
+		case -79:
+			return (char) 164;
 	}
 }
