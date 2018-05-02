@@ -151,7 +151,7 @@ void Palabra::getIndices()
 	int charActual = 0;
 	for(int i = 0; i < length-caracteresRaros; i++){
 		try{
-			if((int) tira[charActual] == CARACTER_RARO){
+			if((int) tira[charActual] < 0){
 				indices[i] = decodificar(determinarCaracter((int) tira[++charActual]));
 			}else{
 				indices[i] = decodificar(tira[charActual]);
@@ -159,6 +159,8 @@ void Palabra::getIndices()
 			charActual++;
 		}catch(invalid_argument &e){
 			cerr << e.what() << endl;
+			for(int i = 0; i < length+caracteresRaros; i++)
+				cout << (int) tira[i] << " " << endl;
 			cerr << "No se pudo agregar la palabra " << "\"" << tira << "\"" <<endl;
 			exit(1);
 		}
