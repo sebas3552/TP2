@@ -2,7 +2,10 @@
 #define TEXTO_H
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <locale>
+#include <vector>
+#include "Palabra.h"
 #include "Diccionario.h"
 
 /** Esta clase se encarga de obtener los archivos de texto que se utilizarán como diccionario y como comentarios de opinión para dividir (hashtags).
@@ -22,6 +25,9 @@ class Texto{
 		*@return el Diccionario que se pasó como argumento, con las palabras del archivo de texto incorporadas en su estructura de árbol.
 		*/
 		Diccionario &cargarDiccionario(std::string nombreDiccionario, Diccionario &diccionario);
+		void metodoDivision( std::string nombreArchivo );
+		void divPorEspacios( std::string s );
+		bool esRaro( char c );
 		
 	private:
 		/**Función utilitaria que convierte a minúsculas el string que recibe como argumento, para evitar conflictos en la clase Palabra.

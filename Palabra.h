@@ -82,17 +82,19 @@ class Palabra
 		int * indices;
 		/**Largo de la Palabra.*/
 		int length;
-		
-	private:
 		/**Constante que representa el largo del vector de caracteres.*/
 		static const int SIZE = 34;
+		/**Vector constante de caracteres, según lo especificado en el enunciado.*/
+		const char caracteres[SIZE] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+		's', 't', 'u', 'v', 'w', 'x', 'y', 'z', (char) 160, (char) 130, (char) 161, (char) 162, (char) 163, (char) 129, (char) 164, '$'};
+		
+	private:
+		
 		/**Constante que representa el valor -61, que precede a cualquier caracter especial promovido a int incluído en los requisitos para esta tarea.*/
 		static const int CARACTER_RARO = -61;
 		/**String que representa el contenido de la Palabra.*/
 		std::string palabra;
-		/**Vector constante de caracteres, según lo especificado en el enunciado.*/
-		const char caracteres[SIZE] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-		's', 't', 'u', 'v', 'w', 'x', 'y', 'z', (char) 160, (char) 130, (char) 161, (char) 162, (char) 163, (char) 129, (char) 164, '$'}; 
+		
 		/**Función que devuelve el número asociado al caracter que recibe como parámetro.*/
 		int decodificar(char c) const;	
 		/** Función utilitaria que cuenta los caracteres de la Palabra sobre la que se invoca.
