@@ -2,7 +2,6 @@
 #define TEXTO_H
 #include <fstream>
 #include <string>
-#include <locale>
 #include <vector>
 #include "Palabra.h"
 #include "Diccionario.h"
