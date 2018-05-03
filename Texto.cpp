@@ -1,6 +1,5 @@
 #include "Texto.h"
 #include <iostream>
-#include <new>
 
 using namespace std;
 
