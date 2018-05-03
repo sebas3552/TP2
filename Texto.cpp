@@ -63,35 +63,48 @@ void Texto::metodoDivision( string nombreArchivo ){
 	}
 }
 
-void Texto::divPorEspacios( string aDividir ){
+string Texto::divPorEspacios( string aDividir ){
 	vector <string> divisiones;
 	divisiones.push_back( aDividir );
 	
 	char * v = convertirMinusculas( aDividir );
 	
 	int i = 0;
-	while( v[i] ){
-		int dimension = 0;
-		int actual = i;
+	int actual = 0;
+	int dimension = 0;
+	int temp = 0;
+	while( i < aDividir.length() ){
+		dimension = 0;
 		while( (v[actual] != ' ') && (v[actual] != '\0') ){
 			dimension++;
 			actual++;
 		}
 		
-		char aGuardar[ dimension ];
+		char aGuardar[ dimension+1 ];
 		
-		for( int j = i; j < i+dimension; j++ )
-			aGuardar[j] = v[j];
+		temp = i;
+		for( int j = 0; j < dimension; j++ ){
+			aGuardar[j] = v[temp];
+			temp++;
+		}
 		
-		//string a = aGuardar;
+		aGuardar[ dimension ] = '\0';
 		divisiones.push_back( aGuardar );
 		
 		i = ++actual;
 	}
 	delete [] v;
-	cout << divisiones[1];
 	
-	//return divisiones;
+	string dividido;
+	for( int i = 0; i < divisiones.size(); i++ ){
+		if( !i ){
+			dividido += divisiones[i] + ":";
+		} else {
+			dividido += " " + divisiones[i];
+		}
+	}
+	
+	return dividido;
 }
 
 bool Texto::esRaro( char c ){
