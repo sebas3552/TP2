@@ -72,11 +72,12 @@ void Nodo::crearCamino(Nodo &raiz, int* indices, const int largo, int caracterAc
 
 bool Nodo::recorrerCamino(Nodo& primero, int* indices, const int largo, int caracterActual, int verCamino) const
 {	
-	if(primero.vector[indices[caracterActual]] && primero.vector[indices[caracterActual]]->siguiente && primero.vector[indices[caracterActual]]->indice == indices[caracterActual] && caracterActual < largo){
+	if(primero.vector[indices[caracterActual]] && primero.vector[indices[caracterActual]]->siguiente && primero.vector[indices[caracterActual]]->indice == indices[caracterActual] && caracterActual < largo-1){
 		if(primero.vector[SIZE-1] && caracterActual == largo-1 && primero.vector[indices[caracterActual]]->indice == indices[caracterActual]){ //si la palabra forma parte de otra palabra
 			if(verCamino)
 				expandirCamino(primero, indices, caracterActual);
 			return true;
+			
 		}else{	//sino, sigue recorriendo el camino
 			Nodo* siguiente = primero.vector[indices[caracterActual]]->siguiente;
 			if(verCamino)
@@ -104,7 +105,7 @@ void Nodo::expandirCamino(Nodo &nodo, int * indices, int caracterActual) const
 		/*Si existe un nodo*/
 		if(nodo.vector[i]){
 		/*Si el nodo es parte de la palabra que estoy buscando*/
-		caracter = (nodo.vector[i]->indice == indices[caracterActual]? 'X' : 'x');
+		caracter = (nodo.vector[i]->indice == indices[caracterActual] || nodo.vector[i]->indice == SIZE-1? 'X' : 'x');
 		cout << setw(2) << i << " -> " << caracter << endl;
 		}else{
 			caracter = 'o';

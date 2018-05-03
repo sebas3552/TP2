@@ -213,4 +213,6 @@ char Palabra::determinarCaracter(int c)
 		case -79:
 			return (char) 164;
 	}
+	return 0;
 }
+

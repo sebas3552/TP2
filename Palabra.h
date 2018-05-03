@@ -115,7 +115,6 @@ class Palabra
 		* @return Cantidad de caracteres especiales encontrados en la cadena de caracteres, o cero si no encontró ninguno.
 		*/
 		int caracteresEspeciales(const char *v) const;
-		
-		
+			
 };
 #endif
