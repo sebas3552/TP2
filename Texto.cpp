@@ -38,13 +38,11 @@ void Texto::metodoDivision( string nombreArchivo ){
 	while( getline( archivo, s ) ){
 		const char * v = s.c_str();
 		bool hayEspacios = false;
-		int cantEspacios = 0;
 		bool hayRaros = false;
 		
 		for( int i = 1; i < s.length(); i++ ){
 			if( v[i] == ' ' ){
 				hayEspacios = true;
-				cantEspacios++;
 			}
 			
 			if( esRaro( (v[i] < 0? Palabra::determinarCaracter(v[i]) : v[i]) ) ){
