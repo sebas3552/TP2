@@ -9,7 +9,7 @@
 using namespace std;
 
 int main()
-{/*
+{
 	Texto texto;
 	Diccionario *d = new Diccionario();
 	string ruta;
@@ -27,12 +27,7 @@ int main()
 	}while(hayProblemas);
 	cout << "está África?: " << boolalpha << d->operator[]("África") << endl;
 	cout << "está a?: " << boolalpha << d->operator[]("a") << endl;
-	delete d; */
-
-	Texto texto;
-	texto.metodoDivision( "comentarios.txt" );
-	
-	//texto.divPorEspacios( "hola soy german!" );
+	delete d;
 	
 	return 0;
 }
