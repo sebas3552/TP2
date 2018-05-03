@@ -25,7 +25,15 @@ class Texto{
 		*/
 		Diccionario &cargarDiccionario(std::string nombreDiccionario, Diccionario &diccionario);
 		void metodoDivision( std::string nombreArchivo );
-		void divPorEspacios( std::string s );
+		/**Función que divide un hashtag por espacios.
+		*@param s String al que se dividirá por espacios.
+		*@return Un string con el hashtag que se recibió como parámetro, y además, todas sus divisiones correspondientes.
+		*/
+		std::string divPorEspacios( std::string s );
+		/**Función que informa de la presencia de un caracter en el vector de caracteres brindado en el enunciado.
+		*@param c Char que se buscará en el vector de caracteres.
+		*@return true si no está, false en caso contrario.
+		*/
 		bool esRaro( char c );
 		
 	private:
