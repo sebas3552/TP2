@@ -27,7 +27,7 @@ Diccionario &Texto::cargarDiccionario(string nombreDiccionario, Diccionario &dic
 
 void Texto::separar( string nombreArchivo, Diccionario &diccionario ){
 	fstream entrada(nombreArchivo);
-	fstream salida("Separados.txt", ios::out);
+	fstream salida("Separados.csv", ios::out);
 	if( !entrada ){
 		throw invalid_argument( "El archivo indicado no existe!" );
 	}
@@ -60,7 +60,6 @@ void Texto::separar( string nombreArchivo, Diccionario &diccionario ){
 				if( hayRaros )
 					salida << divPorRaros(tira) << endl;
 				else
-					cout << "si " << endl;
 					salida << divPorDiccionario(tira, diccionario) << endl;
 	}
 	entrada.close();
