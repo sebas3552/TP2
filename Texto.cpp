@@ -29,7 +29,6 @@ Diccionario &Texto::cargarDiccionario(string nombreDiccionario, Diccionario &dic
 
 void Texto::metodoDivision( string nombreArchivo ){
 	fstream archivo( nombreArchivo );
-	Palabra p;                                //para acceder al vector de caracteres validos
 	
 	if( !archivo ){
 		throw invalid_argument( "El archivo indicado no existe!" );
@@ -42,13 +41,13 @@ void Texto::metodoDivision( string nombreArchivo ){
 		int cantEspacios = 0;
 		bool hayRaros = false;
 		
-		for( int i = 0; i < s.length(); i++ ){
+		for( int i = 1; i < s.length(); i++ ){
 			if( v[i] == ' ' ){
 				hayEspacios = true;
 				cantEspacios++;
 			}
 			
-			if( esRaro( v[i] ) ){
+			if( esRaro( (v[i] < 0? Palabra::determinarCaracter(v[i]) : v[i]) ) ){
 				hayRaros = true;
 			}
 		}
@@ -81,28 +80,27 @@ void Texto::divPorEspacios( string aDividir ){
 			actual++;
 		}
 		
-		char * aGuardar = new char[ dimension ];
+		char aGuardar[ dimension ];
 		
 		for( int j = i; j < i+dimension; j++ )
 			aGuardar[j] = v[j];
 		
-		string a = aGuardar;
-		divisiones.push_back( a );
+		//string a = aGuardar;
+		divisiones.push_back( aGuardar );
 		
 		i = ++actual;
 	}
-	
+	delete [] v;
 	cout << divisiones[1];
 	
 	//return divisiones;
 }
 
 bool Texto::esRaro( char c ){
-	Palabra p;
 	bool esRaro = true;
 	
-	for( int i = 0; i < p.SIZE-1; i++ ){
-		if( c == p.caracteres[i] )
+	for( int i = 0; i < Palabra::SIZE-1; i++ ){
+		if( c == Palabra::caracteres[i] )
 			esRaro = false;
 	}
 	

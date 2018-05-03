@@ -1,5 +1,6 @@
 #include "Arbol.h"
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 Arbol::Arbol()
 {
@@ -14,7 +15,12 @@ Arbol::~Arbol()
 void Arbol::agregar(Palabra &palabra)
 {
 	int caracterActual = 0;
-	raiz->crearCamino(*raiz, palabra.indices, palabra.length, caracterActual);
+	try{
+		raiz->crearCamino(*raiz, palabra.indices, palabra.length, caracterActual);
+	}catch(bad_alloc &e){
+		cerr << "Error: sin memoria disponible! " << e.what() << endl;
+		exit(1);
+	}
 }
 
 bool Arbol::verificar(Palabra &palabra) const

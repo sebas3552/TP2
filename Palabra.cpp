@@ -5,6 +5,8 @@
 #include <exception>
 using namespace std;
 
+constexpr char Palabra::caracteres[SIZE];
+
 ostream &operator<<(ostream &salida, Palabra &tira)
 {
 	salida << tira.palabra;
@@ -180,7 +182,7 @@ int Palabra::caracteresEspeciales(const char *v) const
 	return caracteresEspeciales;
 }
 
-char Palabra::determinarCaracter(int c) const
+char Palabra::determinarCaracter(int c)
 {
 	switch(c){
 		case -127:

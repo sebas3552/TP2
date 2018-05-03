@@ -47,6 +47,8 @@ Diccionario &Diccionario::operator+=(const char *v)
 {
 	Palabra p(v);
 	arbol->agregar(p);
+	/*if(v)
+		delete [] v;*/
 	return *this;
 }
 

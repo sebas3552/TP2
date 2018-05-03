@@ -25,47 +25,49 @@ Nodo::~Nodo()
 }
 
 void Nodo::crearCamino(Nodo &raiz, int* indices, const int largo, int caracterActual)
-{	
-	if(caracterActual < largo-1){
-		if(!raiz.vector[indices[caracterActual]]){ //el Nodo raiz tiene un vector que adentro tiene nodos
-			raiz.vector[indices[caracterActual]] = new Nodo();	//si no existe el nodo dentro del vector, creo uno
-			raiz.vector[indices[caracterActual]]->indice = indices[caracterActual];	//le asigno el indice correspondiente
-		}
-		Nodo* siguiente;
-		/* Si el nodo en el vector del Nodo raiz no apunta a un siguiente, hago un nuevo Nodo siguiente y 
-		* creo un nuevo Nodo en el vector del Nodo nuevo en el subindice especificado por el índice del caracter.
-		* Luego, el nodo dentro del Nodo raiz apunta ahora al nuevo nodo que acabo de crear dentro del siguiente.
-		* Ahora tomo al Nodo siguiente como la nueva raíz para dar el paso recursivo, mientras el indice del 
-		* caracter actual sea menor que el largo de la palabra -1, para crear al final el nodo que apunta a sí mismo.
-		*/
-		if(!raiz.vector[indices[caracterActual]]->siguiente){ 
-			siguiente = new Nodo();	
-			siguiente->vector[indices[++caracterActual]] = new Nodo();	
-			raiz.vector[indices[caracterActual-1]]->siguiente = siguiente->vector[indices[caracterActual]]; 
-			raiz.vector[indices[caracterActual-1]]->siguiente->indice = indices[caracterActual]; 
-			crearCamino(*raiz.vector[indices[caracterActual-1]]->siguiente, indices, largo, caracterActual);
+{	try{
+		if(caracterActual < largo-1){
+			if(!raiz.vector[indices[caracterActual]]){ //el Nodo raiz tiene un vector que adentro tiene nodos
+				raiz.vector[indices[caracterActual]] = new Nodo();	//si no existe el nodo dentro del vector, creo uno
+				raiz.vector[indices[caracterActual]]->indice = indices[caracterActual];	//le asigno el indice correspondiente
+			}
+			Nodo* siguiente;
+			/* Si el nodo en el vector del Nodo raiz no apunta a un siguiente, hago un nuevo Nodo siguiente y 
+			* creo un nuevo Nodo en el vector del Nodo nuevo en el subindice especificado por el índice del caracter.
+			* Luego, el nodo dentro del Nodo raiz apunta ahora al nuevo nodo que acabo de crear dentro del siguiente.
+			* Ahora tomo al Nodo siguiente como la nueva raíz para dar el paso recursivo, mientras el indice del 
+			* caracter actual sea menor que el largo de la palabra -1, para crear al final el nodo que apunta a sí mismo.
+			*/
+			if(!raiz.vector[indices[caracterActual]]->siguiente){ 
+				siguiente = new Nodo();	
+				siguiente->vector[indices[++caracterActual]] = new Nodo();	
+				raiz.vector[indices[caracterActual-1]]->siguiente = siguiente->vector[indices[caracterActual]]; 
+				raiz.vector[indices[caracterActual-1]]->siguiente->indice = indices[caracterActual]; 
+				crearCamino(*raiz.vector[indices[caracterActual-1]]->siguiente, indices, largo, caracterActual);
+			}
+			else{
+			/* Si el nodo en el vector del Nodo raiz ya apunta a un siguiente (ya existe otra palabra en ese camino),
+			* tomo ese Nodo al que apunta como el nuevo Nodo raíz para dar el paso recursivo cuantas veces sea 
+			* necesario, hasta que el nodo dentro del vector en el campo especificado no apunte a un siguiente.
+			* Si la palabra que se está creando forma parte de otra palabra, en donde termine la palabra más 
+			* pequeña se agrega el nodo de confirmación de fin de palabra, es decir, el puntero en la posición de $, 
+			* con lo que se sabe que ahí existe una palabra, aunque esté dentro del camino de otra.
+			*/
+				siguiente = raiz.vector[indices[caracterActual]]->siguiente; 
+				crearCamino(*siguiente, indices, largo, ++caracterActual);
+			}
 		}
 		else{
-		/* Si el nodo en el vector del Nodo raiz ya apunta a un siguiente (ya existe otra palabra en ese camino),
-		* tomo ese Nodo al que apunta como el nuevo Nodo raíz para dar el paso recursivo cuantas veces sea 
-		* necesario, hasta que el nodo dentro del vector en el campo especificado no apunte a un siguiente.
-		* Si la palabra que se está creando forma parte de otra palabra, en donde termine la palabra más 
-		* pequeña se agrega el nodo de confirmación de fin de palabra, es decir, el puntero en la posición de $, 
-		* con lo que se sabe que ahí existe una palabra, aunque esté dentro del camino de otra.
-		*/
-			siguiente = raiz.vector[indices[caracterActual]]->siguiente; 
-			crearCamino(*siguiente, indices, largo, ++caracterActual);
+			if(!raiz.vector[indices[caracterActual]])
+				raiz.vector[indices[caracterActual]] = new Nodo();
+			raiz.vector[indices[caracterActual]]->indice = indices[caracterActual];
+			raiz.vector[SIZE-1] = new Nodo();	 //crea un nuevo nodo en la ultima posicion y
+			raiz.vector[SIZE-1]->siguiente = raiz.vector[SIZE-1]; //apunta a si mismo	
+			raiz.vector[SIZE-1]->indice = SIZE-1;
 		}
+    }catch(bad_alloc &e){
+		throw e;
 	}
-	else{
-		if(!raiz.vector[indices[caracterActual]])
-			raiz.vector[indices[caracterActual]] = new Nodo();
-		raiz.vector[indices[caracterActual]]->indice = indices[caracterActual];
-		raiz.vector[SIZE-1] = new Nodo();	 //crea un nuevo nodo en la ultima posicion y
-		raiz.vector[SIZE-1]->siguiente = raiz.vector[SIZE-1]; //apunta a si mismo	
-		raiz.vector[SIZE-1]->indice = SIZE-1;
-	}
-	
 }
 
 bool Nodo::recorrerCamino(Nodo& primero, int* indices, const int largo, int caracterActual, int verCamino) const
@@ -111,4 +113,3 @@ void Nodo::expandirCamino(Nodo &nodo, int * indices, int caracterActual) const
 	}
 	cout << endl;
 }
-
