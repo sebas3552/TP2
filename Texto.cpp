@@ -1,5 +1,6 @@
 #include "Texto.h"
 #include <iostream>
+#include <new>
 
 using namespace std;
 
@@ -38,20 +39,22 @@ void Texto::metodoDivision( string nombreArchivo ){
 	while( getline( archivo, s ) ){
 		const char * v = s.c_str();
 		bool hayEspacios = false;
+		int cantEspacios = 0;
 		bool hayRaros = false;
 		
 		for( int i = 0; i < s.length(); i++ ){
 			if( v[i] == ' ' ){
 				hayEspacios = true;
+				cantEspacios++;
 			}
 			
-			if( esRaro( (v[i] < 0? esRaro(Palabra::determinarCaracter(v[++i])) : v[i]) ){
+			if( esRaro( v[i] ) ){
 				hayRaros = true;
 			}
 		}
 		
 		if( hayEspacios ){
-			//divPorEspacios( s );
+			//divPorEspacios( s, cantEspacios );
 			cout << "tiene espacios, entonces se debe llamar al metodo que divida por espacios" << endl;
 		} else if( hayRaros ){
 			//divPorRaros( s );
@@ -65,23 +68,31 @@ void Texto::metodoDivision( string nombreArchivo ){
 
 void Texto::divPorEspacios( string aDividir ){
 	vector <string> divisiones;
-	
 	divisiones.push_back( aDividir );
 	
-	int cantDiv = 0;
-	while( strtok( aDividir.c_str(), " " ) ){
-		//divisiones.push_back( div );
-		cantDiv++;
+	char * v = convertirMinusculas( aDividir );
+	
+	int i = 0;
+	while( v[i] ){
+		int dimension = 0;
+		int actual = i;
+		while( (v[actual] != ' ') && (v[actual] != '\0') ){
+			dimension++;
+			actual++;
+		}
+		
+		char * aGuardar = new char[ dimension ];
+		
+		for( int j = i; j < i+dimension; j++ )
+			aGuardar[j] = v[j];
+		
+		string a = aGuardar;
+		divisiones.push_back( a );
+		
+		i = ++actual;
 	}
 	
-	for( int i = 0; i < cantDiv; i++ ){
-		string z = strtok( aDividir.c_str(), " " );
-		divisiones.push_back( z );
-	}
-	
-	for( int i = 0; i < cantDiv; i++ ){
-		cout << divisiones[i] << endl;
-	}
+	cout << divisiones[1];
 	
 	//return divisiones;
 }
