@@ -1,67 +1,66 @@
-#include<iostream>
+#include "Diccionario.h"
+#include "Palabra.h"
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <stdexcept>
+#include "Texto.h"
+
 using namespace std;
-#include "ZonaFranca.h" // ZonaFranca.h y ZonaFranca.cpp
-#include "Fabrica.h"
-#include "Elemento.h"
-#include "Agrupador.h"
-#include "Visualizador.h"
-#include "Lista.h"
 
-int main( int argc, char ** argv){
-   if(argc < 5){
-      cout << "Uso: agrupador elemento algoritmoDeClustering visualizador datos.txt"<< endl;	   
-   }
-   else {
-	  // Verificando entrada de datos
-      for(int i=0;i < argc; ++i){
-	      cout << argv[i]<< endl;
-      }
- 	  const char * nombreElemento = argv[1];
-	  const char * nombreAgrupador = argv[2];
-	  const char * nombreVisualizador = argv[3];
-	  const char * nombreArchivo = argv[4];
-	  
-      ZonaFranca zonaFranca; // Solo pueden agregar Fabricas en constructor ZonaFranca() de ZonaFranca.cpp
-	  // La Franca destruye la Fabricas
-      Fabrica * elementos = zonaFranca.getFabrica("elemento",nombreElemento);
-	  Fabrica * agrupadores = zonaFranca.getFabrica("agrupador",nombreAgrupador);  	  
-	  Fabrica * visualizadores = zonaFranca.getFabrica("visualizador",nombreVisualizador);
-		  
-	  if(!elementos) {
-		cout << "ERROR: No existe una fabrica de elementos llamados "<< nombreElemento << endl;  
-	  }  
-	  if(!agrupadores){
-		cout << "ERROR: No existe una fabrica de agrupadores llamados "<< nombreAgrupador << endl;    
-	  }
-	  if(!visualizadores){
-		cout << "ERROR: No existe una fabrica de visualizadores llamados "<< nombreVisualizador << endl;    
-	  }
-      if( elementos && agrupadores && visualizadores ){	  
-		  Elemento * elemento = dynamic_cast<Elemento *>(elementos->producir());
-		  Agrupador * agrupador = dynamic_cast<Agrupador *>(agrupadores->producir());
-		  Visualizador * visualizador = dynamic_cast<Visualizador *>(visualizadores->producir());	  
-		  
-		  
-		  // Insertar una copia de cada elemento obtenido desde el archivo nombreArchivo
-		  Lista * lista = new Lista( elemento, nombreArchivo);
-
-		  Lista * grupos = agrupador->agrupar(lista);
-		  
-		  visualizador->visualizar( grupos );  
-		  
-		  // Los productos y las listas son responsabilidad de ustedes
-		  // La lista guarda copias de los elementos y debe destruirlos
-		  delete grupos;
-		  delete lista;
-		  delete visualizador;
-		  delete agrupador;
-		  delete elemento;
-			  
-		  // LAS FABRICAS SON DESTRUIDAS POR LA ZONA FRANCA POR ESO CON CONST
-		  // // delete visualizadores;
-		  // delete agrupadores;
-		  // delete elementos;
-	   }
-   }
-   return 0;
+int main()
+{
+	Texto texto;
+	Diccionario *diccionario = new Diccionario();
+	string ruta;
+	int opcion = 0;
+	bool hayProblemas = false;
+	cout << "Bienvenido!" << endl << endl;
+	do{
+		try{
+			cout << "Seleccione una opcion del menu: " << endl;
+			cout << "1: Cargar diccionario" << endl;
+			cout << "2: Cargar documento para extraer hashtags" << endl;
+			cout << "3: Guardar los hashtags" << endl;
+			cout << "4: Ver el camino de una palabra" << endl;
+			cout << "5: Salir" << endl;
+			cin >> opcion;
+			if(opcion < 0 || opcion > 5)
+				throw invalid_argument("Seleccione una opcion");
+			switch(opcion){
+				case 1:
+				cout << "Ingrese el nombre del archivo o ruta del diccionario: " << endl;
+				cin >> ruta;
+				texto.cargarDiccionario(ruta, *diccionario);
+				break;
+				case 2: 
+				cout << "Ingrese el nombre del archivo o ruta del archivo: " << endl;
+				cin >> ruta;
+				break;
+				case 3:
+				texto.separar(ruta, *diccionario);
+				cout << "Los hashtags se separaron correctamente!" << endl;
+				break;
+				case 4: {
+				string palabra;
+				cout << "Ingrese una palabra para ver su camino: " << endl;
+				cin >> palabra;
+				Palabra p(palabra);
+				diccionario->imprimirCamino(p);
+				}
+				break;
+				case 5: 
+				cout << endl;
+				exit(0);
+			}
+			hayProblemas = false;
+		}catch(invalid_argument &e){
+			cerr << "Error! " << e.what() << endl;
+			hayProblemas = true;
+		}
+	}while(hayProblemas || opcion != 5);
+	
+	delete diccionario; 
+	
+	return 0;
 }
